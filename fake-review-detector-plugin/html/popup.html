@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Review Detector</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous"/>
+</head>
+<body>
+    <!-- Landing Screen -->
+    <div class="main-container" id="landingScreen">
+        <!-- Compact Warning Header -->
+        <div class="header-section warning-compact">
+            <div class="warning-icon">⚠️</div>
+            <div class="warning-content">
+                <div class="warning-text">Login required for history feature</div>
+                <button class="btn-login-inline" id="loginBtnLanding">Log in</button>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Hotel Analysis -->
+            <div class="hotel-section">
+                <h2 class="hotel-name" id="hotelNameLanding">Hotel name</h2>
+                
+                <div class="chart-container">
+                    <div class="pie-chart" id="pieChartLanding">
+                        <div class="percentage-text" id="percentageTextLanding">65%</div>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <div class="result-item genuine">
+                        <span class="percentage" id="genuinePercentageLanding">65%</span>
+                        <span class="label">Genuine</span>
+                    </div>
+                    <div class="result-item fake">
+                        <span class="percentage" id="fakePercentageLanding">35%</span>
+                        <span class="label">Fake</span>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="displayResultBtnLanding">Display result</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" id="analysisTabLanding">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Analysis</div>
+            </div>
+            <div class="nav-item" id="historyTabLanding">
+                <div class="nav-icon">🕒</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" id="profileTabLanding">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profile</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div class="main-container" id="dashboardScreen" style="display: none;">
+        <!-- Compact Welcome Header -->
+        <div class="header-section welcome-compact">
+            <div class="welcome-icon">👋</div>
+            <div class="welcome-content">
+                <div class="welcome-text" id="welcomeUser">Welcome back!</div>
+                <div class="welcome-subtext">All features available</div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Hotel Analysis -->
+            <div class="hotel-section">
+                <h2 class="hotel-name" id="hotelName">Hotel name</h2>
+                
+                <div class="chart-container">
+                    <div class="pie-chart" id="pieChart">
+                        <div class="percentage-text" id="percentageText">65%</div>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <div class="result-item genuine">
+                        <span class="percentage" id="genuinePercentage">65%</span>
+                        <span class="label">Genuine</span>
+                    </div>
+                    <div class="result-item fake">
+                        <span class="percentage" id="fakePercentage">35%</span>
+                        <span class="label">Fake</span>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="displayResultBtn">Display result</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" id="analysisTab">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Analysis</div>
+            </div>
+            <div class="nav-item" id="historyTab">
+                <div class="nav-icon">🕒</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" id="profileTab">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profile</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen" style="display: none;">
+        <!-- Login Container - Consistent with History design -->
+        <div class="login-container">
+            <!-- Login Header -->
+            <div class="login-header">
+                <div class="login-title">Review Analyzer</div>
+            </div>
+
+            <div class="login-content">
+                <div class="login-tabs">
+                    <button class="tab-btn active" id="loginTab">Login</button>
+                    <button class="tab-btn" id="signupTab">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button class="auth-btn" id="loginBtn">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-spinner" style="display: none;">⟳</span>
+                    </button>
+                    <button class="back-btn-bottom" id="backBtn">← Back</button>
+                    <div class="demo-hint">
+                        Demo: demo@analyzer.com / demo123
+                    </div>
+                </div>
+
+                <!-- Signup Form -->
+                <div class="signup-form" id="signupForm" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" id="signupName" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="signupEmail" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="signupPassword" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    </div>
+                    <button class="auth-btn" id="signupBtn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-spinner" style="display: none;">⟳</span>
+                    </button>
+                    <button class="back-btn-bottom" id="backBtn">← Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Display -->
+    <div class="message-toast" id="messageToast"></div>
+
+    <script src="../js/popup.js"></script>
+    <script src="../js/login_signup.js"></script>
+</body>
+</html>

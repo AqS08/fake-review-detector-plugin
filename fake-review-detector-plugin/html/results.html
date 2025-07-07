@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Review Analysis Results</title>
+    <link rel="stylesheet" href="../css/results.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"/>
+    <script src="../libs/d3.min.js"></script>
+    <script src="../libs/d3.layout.cloud.min.js"></script>
+</head>
+<body>
+    <div class="results-container">
+        <!-- Header Section -->
+        <div class="results-header">
+            <h1 class="hotel-name" id="hotelName">Hotel name</h1>
+        </div>
+
+        <!-- Pie Chart Section -->
+        <div class="pie-chart-section">
+            <div class="pie-chart-container">
+                <div class="pie-chart" id="pieChart">
+                    <div class="chart-inner">
+                        <div class="percentage-display">
+                            <span class="fake-percentage" id="fakePercentage">35%</span>
+                            <span class="genuine-percentage" id="genuinePercentage">65%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Summary -->
+            <div class="results-summary">
+                <div class="result-item genuine">
+                    <span class="percentage" id="genuinePercent">65%</span>
+                    <span class="label">Genuine</span>
+                </div>
+                <div class="result-item fake">
+                    <span class="percentage" id="fakePercent">35%</span>
+                    <span class="label">Fake</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Word Cloud Section -->
+        <div class="word-cloud-section">
+            <h2 class="section-title">Word cloud</h2>
+            <div class="word-cloud-container" id="wordCloudContainer">
+                <!-- Word cloud SVG will be populated by D3.js -->
+                <svg id="wordCloudSvg" width="100%" height="400"></svg>
+            </div>
+        </div>
+
+        <!-- Frequent Reviewers Section -->
+        <div class="frequent-reviewers-section">
+            <h2 class="section-title">Frequent reviewers</h2>
+            <div class="reviewers-list" id="frequentReviewersList">
+                <!-- Frequent reviewers will be populated by JavaScript -->
+                <div class="reviewer-item">
+                    <span class="reviewer-name">Loading...</span>
+                    <span class="review-count">[0 reviews]</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individual Review Results Section -->
+        <div class="review-results-section">
+            <h2 class="section-title">Review result</h2>
+            <div class="reviews-list" id="individualReviewsList">
+                <!-- Individual reviews will be populated by JavaScript -->
+                <div class="review-result-placeholder">
+                    <p>Loading review analysis...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Section -->
+        <div class="action-buttons">
+            <button class="download-btn" id="downloadBtn">
+                <i class="fas fa-download"></i>
+                Download result
+            </button>
+            <button class="back-btn" id="backBtn">
+                <i class="fas fa-arrow-left"></i>
+                Back
+            </button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Analyzing reviews...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/results.js"></script>
+</body>
+</html>

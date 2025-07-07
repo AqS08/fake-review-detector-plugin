@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous"/>
+</head>
+<body>
+    <!-- Profile Screen - Consistent with History design -->
+    <div class="profile-screen" id="profileScreen">
+        <!-- Profile Container (White background like history) -->
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-title">User's Profile</div>
+                <div class="profile-subtitle">Hello, <span id="profileUserName">Demo User</span>!</div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <div class="profile-form">
+                    <!-- Username Field -->
+                    <div class="form-field">
+                        <div class="field-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" id="profileUsername" placeholder="Username" readonly>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-field">
+                        <div class="field-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <input type="email" id="profileEmail" placeholder="Email" readonly>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-field">
+                        <div class="field-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <input type="password" id="profilePassword" placeholder="••••••••" readonly>
+                    </div>
+
+                    <!-- Logout Button -->
+                    <button class="btn-primary logout-btn" id="profileLogoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Log out
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-item" id="analysisTabProfile">
+                    <div class="nav-icon">📊</div>
+                    <div class="nav-label">Analysis</div>
+                </div>
+                <div class="nav-item" id="historyTabProfile">
+                    <div class="nav-icon">🕒</div>
+                    <div class="nav-label">History</div>
+                </div>
+                <div class="nav-item active" id="profileTabProfile">
+                    <div class="nav-icon">👤</div>
+                    <div class="nav-label">Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Display -->
+    <div class="message-toast" id="messageToast"></div>
+
+    <script src="../js/profile.js"></script>
+</body>
+</html>

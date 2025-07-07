@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis History</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous"/>
+</head>
+<body>
+    <!-- History Screen -->
+    <div class="history-screen" id="historyScreen">
+        <!-- History Container (White background like popup) -->
+        <div class="history-container">
+            <!-- History Header -->
+            <div class="history-header">
+                <div class="history-title">History</div>
+            </div>
+
+            <!-- History Content -->
+            <div class="history-content">
+                <!-- History List -->
+                <div class="history-list" id="historyList">
+                    <!-- History items will be populated by JavaScript -->
+                    <div class="no-history" id="noHistory">
+                        <p>No analysis history found</p>
+                        <span>Start analyzing hotels to see your history!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-item" id="analysisTabHistory">
+                    <div class="nav-icon">📊</div>
+                    <div class="nav-label">Analysis</div>
+                </div>
+                <div class="nav-item active" id="historyTabHistory">
+                    <div class="nav-icon">🕒</div>
+                    <div class="nav-label">History</div>
+                </div>
+                <div class="nav-item" id="profileTabHistory">
+                    <div class="nav-icon">👤</div>
+                    <div class="nav-label">Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Display -->
+    <div class="message-toast" id="messageToast"></div>
+
+    <script src="../js/history.js"></script>
+</body>
+</html>
