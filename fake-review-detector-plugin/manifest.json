@@ -8,6 +8,11 @@
         "activeTab",
         "tabs"
     ],
+    "host_permissions": [
+        "http://localhost/*",
+        "http://127.0.0.1/*",
+        "http://localhost:8888/*"
+    ],
     "action": {
         "default_popup": "html/popup.html",
         "default_title": "Fake Review Detector",
