@@ -107,45 +107,55 @@ function togglePasswordVisibility() {
 }
 
 function loadUserProfile() {
-    chrome.storage.local.get(['userName', 'userEmail', 'userPassword', 'isLoggedIn'], function(result) {
-        if (!result.isLoggedIn) {
-            showMessage('Please log in to view profile', 'error');
-            setTimeout(() => { navigateToTab('login'); }, 1500);
-            return;
+    $.ajax({
+        url: 'http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/get_profile.php', // adjust path if needed
+        method: 'GET',
+        xhrFields: { withCredentials: true },
+        success: function(data) {
+            if (data.success) {
+                if (profileUsername) profileUsername.value = data.username || '';
+                if (profileEmail) profileEmail.value = data.email || '';
+                if (profilePassword) {
+                    profilePassword.value = '••••••••';
+                    profilePassword.type = 'password';
+                }
+                const profileUserName = document.getElementById('profileUserName');
+                if (profileUserName) profileUserName.textContent = data.username || '';
+                isPasswordVisible = false;
+                if (passwordToggleIcon) passwordToggleIcon.className = 'fas fa-eye';
+            } else {
+                showMessage('Please log in to view profile', 'error');
+                setTimeout(() => { window.location.href = 'popup.html'; }, 1500);
+            }
+        },
+        error: function() {
+            showMessage('Server error', 'error');
         }
-
-        if (profileUsername) profileUsername.value = result.userName || '';
-        if (profileEmail) profileEmail.value = result.userEmail || '';
-        if (profilePassword) {
-            profilePassword.value = '••••••••';
-            profilePassword.type = 'password';
-        }
-        const profileUserName = document.getElementById('profileUserName');
-        if (profileUserName) profileUserName.textContent = result.userName || '';
-        actualPassword = result.userPassword || '';
-        isPasswordVisible = false;
-        if (passwordToggleIcon) passwordToggleIcon.className = 'fas fa-eye';
     });
 }
 
 // Handle logout
 function handleProfileLogout() {
-    // Add loading state to button
     if (profileLogoutBtn) {
         profileLogoutBtn.disabled = true;
         profileLogoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
     }
-    
-    // Simulate logout process
-    setTimeout(() => {
-        chrome.storage.local.remove(['isLoggedIn', 'userName', 'userEmail', 'userPassword', 'loginTime', 'analysisHistory'], function() {
-            showMessage('You have been logged out successfully', 'success');
-            setTimeout(() => {
-                // Navigate back to main popup
-                window.location.href = 'popup.html';
-            }, 1000);
-        });
-    }, 1200);
+
+    // Call logout.php to destroy the session
+    $.ajax({
+        url: 'http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/logout.php',
+        method: 'POST',
+        xhrFields: { withCredentials: true },
+        complete: function() {
+            // Clear local storage too, then redirect
+            chrome.storage.local.clear(function() {
+                showMessage('You have been logged out successfully', 'success');
+                setTimeout(() => {
+                    window.location.href = 'popup.html';
+                }, 1000);
+            });
+        }
+    });
 }
 
 // Navigate to different tabs/pages
@@ -157,7 +167,8 @@ function navigateToTab(tabName) {
             break;
         case 'history':
             // Navigate to history (you can create history.html later)
-            showMessage('History feature coming soon!', 'info');
+            //showMessage('History feature coming soon!', 'info');
+            window.location.href = 'history.html';
             break;
         case 'profile':
             // Already on profile page

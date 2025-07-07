@@ -18,19 +18,30 @@ document.addEventListener('DOMContentLoaded', function() {
     addInteractiveEffects();
 });
 
-// Check login status and load history
+// Check login status via PHP session and then load history
 function checkLoginAndLoadHistory() {
-    chrome.storage.local.get(['isLoggedIn', 'analysisHistory'], function(result) {
-        if (!result.isLoggedIn) {
-            showMessage('Please log in to view history', 'error');
+    $.ajax({
+        url: 'http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/get_profile.php', // update path as needed
+        method: 'GET',
+        xhrFields: { withCredentials: true },
+        success: function(data) {
+            if (data.success) {
+                // User is logged in (session active)
+                const history = []; // placeholder: replace with real data later
+                loadHistoryData(history);
+            } else {
+                showMessage('Please log in to view history', 'error');
+                setTimeout(function() {
+                    window.location.href = 'popup.html';
+                }, 2000);
+            }
+        },
+        error: function() {
+            showMessage('Server error', 'error');
             setTimeout(function() {
                 window.location.href = 'popup.html';
             }, 2000);
-            return;
         }
-        
-        const history = result.analysisHistory || [];
-        loadHistoryData(history);
     });
 }
 

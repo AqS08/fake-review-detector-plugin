@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: application/json");
 include 'db_connect.php';
 
@@ -16,6 +17,11 @@ $q = "SELECT userId, username FROM users WHERE email='$email' AND password='$has
 $r = mysqli_query($conn, $q);
 
 if ($row = mysqli_fetch_assoc($r)) {
+    // --- SET SESSION ---
+    $_SESSION['userId'] = $row['userId'];
+    $_SESSION['username'] = $row['username'];
+    $_SESSION['email'] = $email;
+
     echo json_encode(array("success" => true, "username" => $row['username'], "email" => $email, "userId" => $row['userId']));
 } else {
     echo json_encode(array("success" => false, "message" => "Invalid credentials"));

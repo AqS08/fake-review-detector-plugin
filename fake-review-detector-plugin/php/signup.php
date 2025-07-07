@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: application/json");
 include 'db_connect.php';
 
@@ -26,6 +27,13 @@ $hash = md5($password);
 // Insert user
 $q = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hash')";
 if (mysqli_query($conn, $q)) {
+    $userId = mysqli_insert_id($conn);
+
+    // --- SET SESSION ---
+    $_SESSION['userId'] = $userId;
+    $_SESSION['username'] = $username;
+    $_SESSION['email'] = $email;
+
     echo json_encode(array("success" => true));
 } else {
     echo json_encode(array("success" => false, "message" => "Signup failed"));
