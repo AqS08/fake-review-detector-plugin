@@ -106,43 +106,25 @@ function togglePasswordVisibility() {
     }
 }
 
-// Load user profile data
 function loadUserProfile() {
     chrome.storage.local.get(['userName', 'userEmail', 'userPassword', 'isLoggedIn'], function(result) {
-        if (result.isLoggedIn) {
-            // Store actual password for toggle functionality
-            actualPassword = result.userPassword || 'demo123';
-            
-            // Populate profile fields with user data
-            if (profileUsername) {
-                profileUsername.value = result.userName || 'Demo User';
-            }
-            if (profileEmail) {
-                profileEmail.value = result.userEmail || 'demo@analyzer.com';
-            }
-            if (profilePassword) {
-                profilePassword.value = '••••••••'; // Start with masked password
-                profilePassword.type = 'password';
-            }
-            
-            // Update greeting
-            const profileUserName = document.getElementById('profileUserName');
-            if (profileUserName) {
-                profileUserName.textContent = result.userName || 'Demo User';
-            }
-            
-            // Reset password visibility state
-            isPasswordVisible = false;
-            if (passwordToggleIcon) {
-                passwordToggleIcon.className = 'fas fa-eye';
-            }
-        } else {
-            // If not logged in, redirect to login
+        if (!result.isLoggedIn) {
             showMessage('Please log in to view profile', 'error');
-            setTimeout(() => {
-                navigateToTab('login');
-            }, 1500);
+            setTimeout(() => { navigateToTab('login'); }, 1500);
+            return;
         }
+
+        if (profileUsername) profileUsername.value = result.userName || '';
+        if (profileEmail) profileEmail.value = result.userEmail || '';
+        if (profilePassword) {
+            profilePassword.value = '••••••••';
+            profilePassword.type = 'password';
+        }
+        const profileUserName = document.getElementById('profileUserName');
+        if (profileUserName) profileUserName.textContent = result.userName || '';
+        actualPassword = result.userPassword || '';
+        isPasswordVisible = false;
+        if (passwordToggleIcon) passwordToggleIcon.className = 'fas fa-eye';
     });
 }
 

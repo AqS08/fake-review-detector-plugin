@@ -28,6 +28,7 @@
                 "html/*.html",
                 "css/styles.css",
                 "js/*.js",
+                "php/*.php",
                 "assets/*",
                 "libs/*.js"
             ],

@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 userEmail: data.email,
                                 userName: data.username,
                                 userId: data.userId,
-                                loginTime: new Date().toISOString()
+                                loginTime: new Date().toISOString(),
+                                userPassword: password // <-- SAVE the real password here!
                             }, function() {
                                 showMessage('Login successful!', 'success');
                                 setTimeout(function() {
@@ -101,7 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 isLoggedIn: true,
                                 userEmail: email,
                                 userName: username,
-                                loginTime: new Date().toISOString()
+                                loginTime: new Date().toISOString(),
+                                userPassword: password // <-- SAVE the real password here!
                             }, function() {
                                 showMessage('Signup successful!', 'success');
                                 setTimeout(function() {
