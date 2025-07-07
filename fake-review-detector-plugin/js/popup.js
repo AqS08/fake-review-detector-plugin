@@ -509,211 +509,298 @@ function createHistoryScreen(history) {
     
     // Add styles
     const style = document.createElement('style');
-    style.textContent = `
-        .history-screen-popup {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            padding: 12px;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-        
-        .history-main-container {
-            background: white;
-            border-radius: 12px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-height: 100%;
-        }
-        
-        .history-header-popup {
-            padding: 20px 20px 16px;
-            background: white;
-            border-bottom: 1px solid #f0f0f0;
-            text-align: center;
-            border-radius: 12px 12px 0 0;
-            flex-shrink: 0;
-        }
-        
-        .history-title-popup {
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin: 0;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #e55039 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 4px 8px rgba(238, 90, 36, 0.3);
-    position: relative;
-    letter-spacing: 0.5px;
-}
+   // Replace the style.textContent in your popup.js createHistoryScreen function with this:
 
-.history-title-popup::before {
-    content: '📊';
-    position: absolute;
-    left: -35px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.3rem;
-    opacity: 0.8;
-}
+style.textContent = `
+    .history-screen-popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        background-size: 200% 200%;
+        animation: gradientShift 8s ease infinite;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    .history-main-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            0 2px 8px rgba(0, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        max-height: 100%;
+    }
+    
+    .history-header-popup {
+        padding: 20px 20px 16px;
+        background: linear-gradient(135deg, rgba(89, 60, 231, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);
+        border-bottom: 1px solid rgba(240, 240, 240, 0.5);
+        margin: 12px 14px 0 14px;
+        border-radius: 12px;
+        text-align: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 16px rgba(89, 60, 231, 0.1);
+    }
 
-.history-title-popup::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b6b, #ee5a24, #e55039);
-    border-radius: 3px;
-    box-shadow: 0 2px 4px rgba(238, 90, 36, 0.4);
-}
-        
-        .history-content-popup {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px 16px;
-            background: white;
-            min-height: 0;
-        }
-        
-        .history-list-popup {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .history-item-popup {
-            background: #d3d3d3;
-            border-radius: 8px;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #c0c0c0;
-        }
-        
-        .history-item-popup:hover {
-            background: #c8c8c8;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .hotel-name-history-popup {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        
-        .result-text-popup {
-            font-size: 0.8rem;
-            color: #555;
-            text-align: center;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .analysis-date-popup {
-            font-size: 0.75rem;
-            color: #777;
-            text-align: center;
-        }
-        
-        .no-history-popup {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-        }
-        
-        .no-history-popup p {
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 0 0 8px;
-            color: #555;
-        }
-        
-        .no-history-popup span {
-            font-size: 0.85rem;
-            color: #777;
-        }
-        
-        .bottom-nav {
-            display: flex;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-            height: 60px;
-            border-radius: 0 0 12px 12px;
-            flex-shrink: 0;
-        }
-        
-        .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            gap: 2px;
-        }
-        
-        .nav-item:hover {
-            background: #f8f9fa;
-        }
-        
-        .nav-item.active {
-            background: #e3f2fd;
-        }
-        
-        .nav-item.active .nav-icon {
-            transform: scale(1.1);
-        }
-        
-        .nav-item.active .nav-label {
-            color: #1976d2;
-            font-weight: 600;
-        }
-        
-        .nav-icon {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-            transition: transform 0.2s ease;
-        }
-        
-        .nav-label {
-            font-size: 0.7rem;
-            color: #666;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        /* Scrollbar styling */
-        .history-content-popup::-webkit-scrollbar {
-            width: 4px;
-        }
-        
-        .history-content-popup::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        .history-content-popup::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 2px;
-        }
-    `;
+    .history-title-popup {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #593ce7;
+        margin: 0 0 4px 0;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background: linear-gradient(135deg, #593ce7 0%, #667eea 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .history-subtitle-popup {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #593ce7;
+        margin: 0;
+        opacity: 0.8;
+    }
+    
+    .history-content-popup {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px 20px;
+        background: transparent;
+        min-height: 0;
+    }
+    
+    .history-list-popup {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    
+    .history-item-popup {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 18px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .history-item-popup::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: left 0.6s;
+    }
+    
+    .history-item-popup:hover::before {
+        left: 100%;
+    }
+    
+    .history-item-popup:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 242, 247, 0.95) 100%);
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+    
+    .hotel-name-history-popup {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .result-text-popup {
+        font-size: 0.85rem;
+        color: #555;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 8px;
+        background: rgba(108, 117, 125, 0.1);
+        padding: 4px 8px;
+        border-radius: 6px;
+        display: inline-block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .analysis-date-popup {
+        font-size: 0.8rem;
+        color: #777;
+        text-align: center;
+        font-weight: 500;
+        background: rgba(119, 119, 119, 0.1);
+        padding: 3px 6px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+    
+    .no-history-popup {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+    }
+    
+    .no-history-popup::before {
+        content: '🕒';
+        display: block;
+        font-size: 4rem;
+        margin-bottom: 20px;
+        opacity: 0.5;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+    
+    .no-history-popup p {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 0 0 12px;
+        color: #555;
+    }
+    
+    .no-history-popup span {
+        font-size: 0.9rem;
+        color: #777;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 24px;
+    }
+    
+    .bottom-nav {
+        display: flex;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(224, 224, 224, 0.5);
+        height: 70px;
+        border-radius: 0 0 12px 12px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    
+    .bottom-nav::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(224,224,224,0.5), transparent);
+    }
+    
+    .nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 4px;
+        border-radius: 12px;
+        margin: 8px 4px;
+        position: relative;
+    }
+    
+    .nav-item:hover {
+        background: rgba(102, 126, 234, 0.1);
+        transform: translateY(-1px);
+    }
+    
+    .nav-item.active {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+    
+    .nav-item.active::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 3px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+    
+    .nav-item.active .nav-icon {
+        transform: scale(1.15);
+    }
+    
+    .nav-item.active .nav-label {
+        color: #1976d2;
+        font-weight: 700;
+    }
+    
+    .nav-icon {
+        font-size: 1.3rem;
+        margin-bottom: 2px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    
+    .nav-label {
+        font-size: 0.7rem;
+        color: #666;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+    
+    /* Enhanced scrollbar */
+    .history-content-popup::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .history-content-popup::-webkit-scrollbar-track {
+        background: rgba(241, 241, 241, 0.5);
+        border-radius: 3px;
+    }
+    
+    .history-content-popup::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #c1c1c1 0%, #a0a0a0 100%);
+        border-radius: 3px;
+        transition: background 0.3s ease;
+    }
+    
+    .history-content-popup::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #a0a0a0 0%, #808080 100%);
+    }
+`;
     
     document.head.appendChild(style);
     document.body.appendChild(historyScreen);
