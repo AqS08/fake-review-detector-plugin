@@ -100,6 +100,9 @@ function setupEventListeners() {
 
     // Login screen listeners
     backBtn?.addEventListener('click', showLandingScreen);
+    document.querySelectorAll('#signupForm .back-btn-bottom').forEach(btn => {
+    btn.addEventListener('click', showLandingScreen);
+    });
     loginTab?.addEventListener('click', switchToLogin);
     signupTab?.addEventListener('click', switchToSignup);
 
@@ -109,6 +112,12 @@ function setupEventListeners() {
     analysisTab?.addEventListener('click', () => switchTab('analysis'));
     historyTab?.addEventListener('click', () => switchTab('history'));
     profileTab?.addEventListener('click', () => switchTab('profile')); // Stays in popup
+
+    // Password toggle logic
+    setupPasswordToggle('password', 'loginPasswordToggle', 'loginPasswordToggleIcon');
+    setupPasswordToggle('signupPassword', 'signupPasswordToggle', 'signupPasswordToggleIcon');
+    setupPasswordToggle('confirmPassword', 'confirmPasswordToggle', 'confirmPasswordToggleIcon');
+
 }
 
 // Show landing screen
@@ -1037,4 +1046,32 @@ function extractReviewsFromCurrentTab() {
             });
         }
     });
+}
+function setupPasswordToggle(inputId, toggleId, iconId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
+    const icon = document.getElementById(iconId);
+    let isVisible = false;
+
+    if (!input || !toggle || !icon) return;
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.add('password-toggle-animate');
+        setTimeout(() => toggle.classList.remove('password-toggle-animate'), 300);
+
+        isVisible = !isVisible;
+        input.type = isVisible ? 'text' : 'password';
+        icon.className = isVisible ? 'fas fa-eye-slash' : 'fas fa-eye';
+    });
+
+    toggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle.click();
+        }
+    });
+
+    toggle.setAttribute('tabindex', '0');
+    toggle.setAttribute('role', 'button');
+    toggle.setAttribute('aria-label', 'Toggle password visibility');
 }
