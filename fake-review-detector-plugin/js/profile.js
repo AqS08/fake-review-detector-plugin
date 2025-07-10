@@ -19,6 +19,19 @@ const profileTabProfile = document.getElementById('profileTabProfile');
 let isPasswordVisible = false;
 let actualPassword = 'demo123'; // This will be loaded from storage
 
+document.addEventListener('DOMContentLoaded', function() {
+    ensureLoggedIn(function(isLoggedIn, data) {
+        if (isLoggedIn) {
+            // User is now "logged in", proceed as usual
+            loadUserProfile(); // or your logic here
+            setupProfileEventListeners();
+            addInteractiveEffects();
+        } else {
+            window.location.href = 'popup.html'; // or your login page
+        }
+    });
+});
+
 // Initialize profile page
 document.addEventListener('DOMContentLoaded', function() {
     loadUserProfile();
@@ -157,6 +170,8 @@ function handleProfileLogout() {
             });
         }
     });
+
+    chrome.storage.local.clear(); // on logout
 }
 
 // Navigate to different tabs/pages
