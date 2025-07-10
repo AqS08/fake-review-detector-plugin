@@ -9,9 +9,7 @@
         "tabs"
     ],
     "host_permissions": [
-        "http://localhost/*",
-        "http://127.0.0.1/*",
-        "http://localhost:8888/*"
+        "http://127.0.0.1:8888/*"
     ],
     "action": {
         "default_popup": "html/popup.html",
@@ -32,7 +30,9 @@
                 "assets/*",
                 "libs/*.js"
             ],
-            "matches": ["<all_urls>"]
+            "matches": [
+                "<all_urls>"
+            ]
         }
     ],
     "content_security_policy": {

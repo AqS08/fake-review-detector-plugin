@@ -1,5 +1,7 @@
 <?php
+session_set_cookie_params(0, "/");
 session_start();
+
 header("Content-Type: application/json");
 include 'db_connect.php';
 
@@ -21,6 +23,7 @@ if ($row = mysqli_fetch_assoc($r)) {
     $_SESSION['userId'] = $row['userId'];
     $_SESSION['username'] = $row['username'];
     $_SESSION['email'] = $email;
+    $_SESSION['password'] = $password;
 
     echo json_encode(array("success" => true, "username" => $row['username'], "email" => $email, "userId" => $row['userId']));
 } else {

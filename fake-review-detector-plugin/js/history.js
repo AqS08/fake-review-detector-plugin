@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Check login status via PHP session and then load history
 function checkLoginAndLoadHistory() {
     $.ajax({
-        url: 'http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/get_profile.php', // update path as needed
+        url: 'http://127.0.0.1:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/get_profile.php', // update path as needed
         method: 'GET',
         xhrFields: { withCredentials: true },
         success: function(data) {

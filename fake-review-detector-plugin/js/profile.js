@@ -108,7 +108,7 @@ function togglePasswordVisibility() {
 
 function loadUserProfile() {
     $.ajax({
-        url: 'http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/get_profile.php', // adjust path if needed
+        url: 'http://127.0.0.1:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/get_profile.php',
         method: 'GET',
         xhrFields: { withCredentials: true },
         success: function(data) {
@@ -116,6 +116,7 @@ function loadUserProfile() {
                 if (profileUsername) profileUsername.value = data.username || '';
                 if (profileEmail) profileEmail.value = data.email || '';
                 if (profilePassword) {
+                    actualPassword = data.password;
                     profilePassword.value = '••••••••';
                     profilePassword.type = 'password';
                 }
@@ -143,7 +144,7 @@ function handleProfileLogout() {
 
     // Call logout.php to destroy the session
     $.ajax({
-        url: 'http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/logout.php',
+        url: 'http://127.0.0.1:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/logout.php',
         method: 'POST',
         xhrFields: { withCredentials: true },
         complete: function() {
@@ -334,3 +335,13 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+/* 
+    "host_permissions": [
+        "http://localhost/*",
+        "http://127.0.0.1/*",
+        "https://l27.0.0.1:8888/*",
+        "http://localhost:8888/*"
+    ],
+
+*/

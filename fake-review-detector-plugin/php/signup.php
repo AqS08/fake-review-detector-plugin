@@ -33,6 +33,7 @@ if (mysqli_query($conn, $q)) {
     $_SESSION['userId'] = $userId;
     $_SESSION['username'] = $username;
     $_SESSION['email'] = $email;
+    $_SESSION['password'] = $password;
 
     echo json_encode(array("success" => true));
 } else {

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setButtonLoading(loginBtn, true);
 
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/login.php", true);
+            xhr.open("POST", "http://127.0.0.1:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/login.php", true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     setButtonLoading(loginBtn, false);
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setButtonLoading(signupBtn, true);
 
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/signup.php", true);
+            xhr.open("POST", "http://127.0.0.1:8888/fake-review-detector-plugin/fake-review-detector-plugin/php/signup.php", true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     setButtonLoading(signupBtn, false);
