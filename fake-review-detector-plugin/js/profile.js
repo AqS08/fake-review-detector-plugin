@@ -250,10 +250,6 @@ function addInteractiveEffects() {
 // Add CSS for ripple effect and enhanced styling
 const style = document.createElement('style');
 style.textContent = `
-    .logout-btn {
-        position: relative;
-        overflow: hidden;
-    }
     
     .ripple {
         position: absolute;

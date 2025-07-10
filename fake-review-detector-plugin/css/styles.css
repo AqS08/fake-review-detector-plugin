@@ -232,7 +232,7 @@ body::before {
 }
 
 /* ========================================
-   ENHANCED BUTTON SYSTEM
+ENHANCED BUTTON SYSTEM
    ======================================== */
 
 .btn-primary {
@@ -891,17 +891,6 @@ body::before {
     gap: 20px;
     flex: 1;
     justify-content: center;
-}
-
-.logout-btn {
-    margin-top: 24px;
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-    box-shadow: 0 4px 16px rgba(220, 53, 69, 0.25);
-}
-
-.logout-btn:hover {
-    background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.35);
 }
 
 /* ========================================
