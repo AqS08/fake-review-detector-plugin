@@ -27,8 +27,10 @@ function checkLoginAndLoadHistory() {
         success: function(data) {
             if (data.success) {
                 // User is logged in (session active)
-                const history = []; // placeholder: replace with real data later
+                chrome.storage.local.get(['analysisHistory'], function(result) {
+                const history = result.analysisHistory || [];
                 loadHistoryData(history);
+            });
             } else {
                 showMessage('Please log in to view history', 'error');
                 setTimeout(function() {
@@ -74,8 +76,17 @@ function loadHistoryData(history) {
     
     if (history.length === 0) {
         // Show no history message
-        const noHistoryElement = createNoHistoryElement();
-        historyList.appendChild(noHistoryElement);
+    if (history.length === 0) {
+    // Optionally, show a simple message or leave empty
+    const noDataMsg = document.createElement('p');
+    noDataMsg.textContent = 'No past analysis found.';
+    noDataMsg.style.textAlign = 'center';
+    noDataMsg.style.marginTop = '20px';
+    noDataMsg.style.color = 'Red';
+    noDataMsg.style.fontSize = '20px';
+    historyList.appendChild(noDataMsg);
+}
+
     } else {
         // Create history items
         history.forEach(function(item, index) {
@@ -90,22 +101,6 @@ function loadHistoryData(history) {
             item.classList.add('fade-in-item');
         });
     }
-}
-
-// Create no history element
-function createNoHistoryElement() {
-    const noHistoryDiv = document.createElement('div');
-    noHistoryDiv.className = 'no-history';
-    noHistoryDiv.innerHTML = `
-        <div class="no-history-icon">📊</div>
-        <p>No analysis history found</p>
-        <span>Start analyzing hotels to see your history!</span>
-        <button class="start-analyzing-btn" onclick="navigateToTab('analysis')">
-            <i class="fas fa-chart-line"></i>
-            Start Analyzing
-        </button>
-    `;
-    return noHistoryDiv;
 }
 
 // Create history item
@@ -145,12 +140,6 @@ function createHistoryItem(item, index) {
                     <div class="genuine-text">${item.genuine}% Genuine</div>
                     <div class="fake-text">${item.fake}% Fake</div>
                 </div>
-            </div>
-            <div class="history-actions">
-                <button class="view-details-btn" onclick="openHistoryResult('${item.analysisId || index}')">
-                    <i class="fas fa-eye"></i>
-                    View Details
-                </button>
             </div>
         </div>
     `;
@@ -327,10 +316,6 @@ function addInteractiveEffects() {
     
     // Add ripple effect to buttons
     document.addEventListener('click', function(e) {
-        if (e.target.closest('.view-details-btn') || e.target.closest('.start-analyzing-btn')) {
-            const button = e.target.closest('button');
-            addRippleEffect(button, e);
-        }
     });
 }
 
