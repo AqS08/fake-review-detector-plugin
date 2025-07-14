@@ -66,10 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize the results page
 function initializeResultsPage() {
-    // Check if we have analysis data from URL parameters or storage
     const urlParams = new URLSearchParams(window.location.search);
     const dataFromUrl = urlParams.get('data');
-    
+
     if (dataFromUrl) {
         try {
             analysisData = JSON.parse(decodeURIComponent(dataFromUrl));
@@ -77,15 +76,10 @@ function initializeResultsPage() {
             console.error('Error parsing URL data:', e);
         }
     }
-    
-    // Show loading initially
-    showLoading();
-    
-    // Simulate API call delay
-    setTimeout(() => {
-        loadAnalysisData();
-        hideLoading();
-    }, 2000);
+
+    // Remove animation delay
+    loadAnalysisData();
+    hideLoading(); // Optional: just to make sure the overlay is hidden if it's there
 }
 
 // Setup event listeners

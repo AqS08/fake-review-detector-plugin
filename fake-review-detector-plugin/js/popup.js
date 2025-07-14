@@ -212,28 +212,23 @@ function updatePieChartLanding(genuinePercent) {
 
 // Display result button on landing - Opens results page
 function displayResultLanding() {
-    if (!displayResultBtnLanding) return;
-    displayResultBtnLanding.textContent = 'Analyzing...';
-    displayResultBtnLanding.disabled = true;
+  // Placeholder for future loader
+  showFutureLoadingAnimation();
 
-    // Generate sample analysis data
-    const analysisData = generateSampleAnalysisData(currentHotel);
-    
-    // Open results page in new tab with loading
-    openResultsPageWithLoading(analysisData);
-    
-    // Reset button immediately since loading happens in new tab
-    displayResultBtnLanding.textContent = 'Display result';
-    displayResultBtnLanding.disabled = false;
-    
-    // Update pie chart animation
-    if (pieChartLanding) {
-        pieChartLanding.style.transform = 'scale(1.1)';
-        setTimeout(() => {
-            pieChartLanding.style.transform = 'scale(1)';
-        }, 200);
-    }
+  // Generate sample analysis data
+  const analysisData = generateSampleAnalysisData(currentHotel);
+
+  // Open results page in new tab
+  openResultsPageWithLoading(analysisData);
 }
+
+// Placeholder function for future loading animation
+function showFutureLoadingAnimation() {
+  // Intentionally left blank
+  // Add overlay display or animation here in future
+  console.log("Loading animation placeholder – implement later if needed.");
+}
+
 
 // Load random hotel for dashboard
 function loadRandomHotel() {
