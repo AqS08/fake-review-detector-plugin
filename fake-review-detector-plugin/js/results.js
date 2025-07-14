@@ -317,42 +317,67 @@ function updateIndividualReviews() {
 }
 
 // Handle download functionality
-function handleDownload() {
-    // Disable button during download
-    downloadBtn.disabled = true;
-    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
-    
-    // Simulate PDF generation
-    setTimeout(() => {
-        // Create download data
-        const downloadData = {
-            hotelName: analysisData.hotelName,
-            timestamp: new Date().toISOString(),
-            analysis: analysisData
-        };
-        
-        // Create a blob with the data (in real implementation, this would be a PDF)
-        const dataStr = JSON.stringify(downloadData, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        
-        // Create download link
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = `${analysisData.hotelName.replace(/\s+/g, '_')}_analysis_${new Date().toISOString().split('T')[0]}.json`;
-        
-        // Trigger download
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // Reset button
-        downloadBtn.disabled = false;
-        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download result';
-        
-        // Show success message
-        showMessage('Analysis results downloaded successfully!', 'success');
-        
-    }, 2000);
+async function handleDownload() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    try {
+        const now = new Date();
+        const timestamp = now.toLocaleString();
+
+        doc.setFontSize(16);
+        doc.text("Hotel Review Analysis Report", 10, 20);
+
+        doc.setFontSize(12);
+        doc.text(`Hotel name: ${analysisData.hotelName}`, 10, 30);
+        doc.text(`Date: ${timestamp}`, 10, 38);
+        doc.text(`Overall percentage reviews are genuine: ${analysisData.genuinePercentage}%`, 10, 46);
+        doc.text(`Overall percentage reviews are fake: ${analysisData.fakePercentage}%`, 10, 54);
+
+        // Top Words
+        doc.setFont(undefined, 'bold');
+        doc.text("Word cloud (frequent words):", 10, 68);
+        doc.setFont(undefined, 'normal');
+        let y = 76;
+        analysisData.wordCloud.forEach(word => {
+        doc.text(`- ${word.word}`, 10, y);
+        y += 8;
+        });
+
+        // Frequent Reviewers
+        doc.setFont(undefined, 'bold');
+        doc.text("Frequent Reviewers:", 10, y + 6);
+        doc.setFont(undefined, 'normal');
+        y += 14;
+        analysisData.frequentReviewers.forEach(reviewer => {
+        doc.text(`- ${reviewer.name}: ${reviewer.reviewCount} reviews`, 10, y);
+        y += 8;
+        });
+
+        // Individual Reviews
+        doc.setFont(undefined, 'bold');
+        doc.text("Reviews Result:", 10, y + 6);
+        doc.setFont(undefined, 'normal');
+        y += 14;
+        analysisData.individualReviews.forEach((review, index) => {
+        doc.text(
+            `${index + 1}. ${review.reviewer}: [${review.classification.toUpperCase()} - ${review.percentage}%] ${review.reviewText}`,
+            10,
+            y
+        );
+        y += 8;
+        if (y > 270) {
+            doc.addPage();
+            y = 20;
+        }
+        });
+
+        const safeHotelName = analysisData.hotelName.replace(/\s+/g, '_');  // Remove spaces
+        doc.save(`${safeHotelName}_Analysis Result.pdf`);
+    } catch (error) {
+        console.error("Error generating PDF:", error);
+        alert("Failed to generate styled PDF.");
+    }
 }
 
 // Handle back navigation
